@@ -213,11 +213,11 @@ export class OkxSpotPrivateConnector implements PrivateExchangeConnector {
     }
 
     private async authenticate(): Promise<void> {
+        const self = this
         const timestamp = Date.now();
         const method = 'GET';
         const requestPath = '/users/self/verify';
-        const signature = this.generateSignature(timestamp);
-        const sign = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(`${timestamp}${method}${requestPath}`, this.credential.secret));
+        const sign = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(`${timestamp}${method}${requestPath}`, self.credential.secret));
         
         const authMessage = JSON.stringify({
             op: 'login',
@@ -228,19 +228,19 @@ export class OkxSpotPrivateConnector implements PrivateExchangeConnector {
                 sign
             }]
         });
-        this.websocket.send(JSON.stringify(authMessage));
+        this.privateWebsocketFeed.send(JSON.stringify(authMessage));
     }
 
     private subscribeToPrivateChannels(): void {
-    const channels = [
-      { channel: 'orders', instId: 'ANY' },
-      { channel: 'account', instId: 'ANY' },
-    ];
-    const subscriptionMessage = {
-      op: 'subscribe',
-      args: channels
-    };
-    this.websocket.send(JSON.stringify(subscriptionMessage));
+        const channels = [
+            { channel: 'orders', instId: 'ANY' },
+            { channel: 'account', instId: 'ANY' },
+            ];
+        const subscriptionMessage = {
+            op: 'subscribe',
+            args: channels
+            };
+            this.privateWebsocketFeed.send(JSON.stringify(subscriptionMessage));
     }
 
     private unsubscribeFromPrivateChannels() {
