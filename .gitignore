@@ -1,0 +1,21 @@
+# Node.js
+node_modules/
+
+# Dependencies
+npm-debug.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Compiled JavaScript files
+*.js
+
+# Database files
+*.db
+
+# Logs
+*.log
+
+# Environment variables
+.env
