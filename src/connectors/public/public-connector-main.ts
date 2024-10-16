@@ -1,7 +1,7 @@
-import {ConnectorConfiguration, ConnectorGroup, Credential } from "../../types";
+import {ConnectorConfiguration, ConnectorGroup, Credential, ConnectorFactory } from "../../types";
 // In public-connector-main.ts
 const connectorInstance: PublicExchangeConnector = ConnectorFactory.getPublicConnector(
-    connectorGroup,
-    connectorConfig,
-    credential
+    ConnectorGroup,
+    ConnectorConfiguration,
+    Credential
 );

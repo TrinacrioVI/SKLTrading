@@ -252,7 +252,7 @@ export class OkxSpotPrivateConnector implements PrivateExchangeConnector {
             op: 'unsubscribe',
             args: channels
         };
-        this.publicWebsocketFeed.send(JSON.stringify(subscriptionMessage));
+        this.privateWebsocketFeed.send(JSON.stringify(subscriptionMessage));
     }
 
     public async stop(): Promise<void> {
@@ -368,12 +368,11 @@ export class OkxSpotPrivateConnector implements PrivateExchangeConnector {
 
     private async getRequest(route: string, params: any): Promise<any> {
         const self = this
+        let queryString = '';
         const timestamp = Math.floor(Date.now() / 1000).toString();
         const method = 'GET';
         const requestPath = `/api/v5${route}`;
         const sign = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(`${timestamp}${method}${requestPath}${queryString}`, this.credential.secret));
-        
-        let queryString = '';
 
         if (Object.keys(params).length > 0) {
             queryString = '?' + new URLSearchParams(params).toString();
