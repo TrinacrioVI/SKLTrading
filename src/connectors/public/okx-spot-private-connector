@@ -234,7 +234,7 @@ export class OkxSpotPrivateConnector implements PrivateExchangeConnector {
     private subscribeToPrivateChannels(): void {
     const channels = [
       { channel: 'orders', instId: 'ANY' },
-      { channel: 'account', instType: 'ANY' },
+      { channel: 'account', instId: 'ANY' },
     ];
     const subscriptionMessage = {
       op: 'subscribe',
@@ -246,7 +246,7 @@ export class OkxSpotPrivateConnector implements PrivateExchangeConnector {
     private unsubscribeFromPrivateChannels() {
         const channels = [
             { channel: 'orders', instId: 'ANY' },
-            { channel: 'account', instType: 'ANY' },
+            { channel: 'account', instId: 'ANY' },
         ];
         const subscriptionMessage = {
             op: 'unsubscribe',
